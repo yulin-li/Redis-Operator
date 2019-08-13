@@ -29,8 +29,31 @@ steps:
 
 - script: |
     go version
-    pwd
-    ls -l
+
+    make setup
+    make test
+
+    sudo make TAG=$(Build.BuildId)
     
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
+
+- task: Docker@2
+  displayName: Login to CR
+  inputs:
+    command: login
+    containerRegistry: $(DockerRegistryConnectionID)
+
+- task: Docker@2
+  displayName: Push docker image
+  inputs: 
+    command: push
+    repository: $(DockerRepository)
+    tags: |
+      $(Build.BuildId)
+
+- task: Docker@2
+  displayName: Logout from CR
+  inputs: 
+    command: logout
+    containerRegistry: $(DockerRegistryConnectionID)
