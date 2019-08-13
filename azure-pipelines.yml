@@ -30,10 +30,13 @@ steps:
 - script: |
     go version
 
+    pwd
+    echo
+
     make setup
     make test
 
-    sudo make TAG=$(Build.BuildId)
+    sudo make TAG=$(Build.BuildId) container
     
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
