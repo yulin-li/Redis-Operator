@@ -36,7 +36,7 @@ steps:
     make setup
     make test
 
-    sudo make TAG=$(Build.BuildId) container
+    sudo -E make TAG=$(Build.BuildId) container
     
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
