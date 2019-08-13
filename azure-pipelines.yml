@@ -37,6 +37,9 @@ steps:
     make test
 
     sudo -E "PATH=$PATH" make TAG=$(Build.BuildId) container
+
+    docker tag redisoperator/redisnode:$(Build.BuildId) $(ACRName)/$(OperatorDockerRepository):$(Build.BuildId)
+    docker tag redisoperator/operator:$(Build.BuildId) $(ACRName)/$(NodeDockerRepository):$(Build.BuildId)
     
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
@@ -48,10 +51,18 @@ steps:
     containerRegistry: $(DockerRegistryConnectionID)
 
 - task: Docker@2
-  displayName: Push docker image
+  displayName: Push operator docker image
   inputs: 
     command: push
-    repository: $(DockerRepository)
+    repository: $(OperatorDockerRepository)
+    tags: |
+      $(Build.BuildId)
+
+- task: Docker@2
+  displayName: Push node docker image
+  inputs: 
+    command: push
+    repository: $(NodeDockerRepository)
     tags: |
       $(Build.BuildId)
 
