@@ -13,7 +13,7 @@ steps:
   displayName: 'Set up the Go workspace'
 
 - script: |
-    ls -l /usr/local/
+    pwd
     go version
     make buildlinux
   workingDirectory: '$(modulePath)'
