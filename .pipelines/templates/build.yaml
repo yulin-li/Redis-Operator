@@ -13,8 +13,9 @@ steps:
   displayName: 'Set up the Go workspace'
 
 - script: |
+    pwd
     go version
-    make build
+    make buildlinux
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
 

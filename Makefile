@@ -27,7 +27,7 @@ build-%:
 	go build ${LDFLAGS} -o bin/$* ./cmd/$*
 
 buildlinux-%: ${SOURCES}
-	go build ${LDFLAGS} -o docker/$*/$* ./cmd/$*/main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -o bin/$* ./cmd/$*
 
 container-%: buildlinux-%
 	@cd docker/$* && docker build -t $(PREFIX)$*:$(TAG) .
