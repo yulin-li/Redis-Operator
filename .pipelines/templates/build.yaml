@@ -14,7 +14,7 @@ steps:
 
 - script: |
     go version
-    make build
+    make buildlinux
   workingDirectory: '$(modulePath)'
   displayName: 'Get dependencies, then build'
 

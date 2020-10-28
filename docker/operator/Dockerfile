@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM gcr.io/distroless/base
 
 ADD ./operator /
 ENTRYPOINT [ "/operator" ]
